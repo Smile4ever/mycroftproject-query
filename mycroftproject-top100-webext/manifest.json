@@ -1,0 +1,24 @@
+{
+	"name": "Mycroft Project Top 100",
+	"description": "Retrieve data from Mycroft Project in JSON format.",
+	"homepage_url": "http://hugsmile.eu",
+	"manifest_version": 2,
+	"version": "0.1.0",
+	"background": {
+		"scripts": ["background.js"]
+	},
+	"icons": {
+		"48": "icons/mycroftproject-top100-64.png"
+	},
+	"applications": {
+		"gecko": {
+			"id": "mycroftproject-top100@hugsmile.eu",
+			"strict_min_version": "48.0"
+		}
+	},
+	"permissions": ["tabs", "activeTab", "notifications"],
+	"browser_action": {
+		"default_icon": "icons/mycroftproject-top100-64.png",
+		"browser_style": true
+	}	
+}
