@@ -6,7 +6,7 @@ searchengines-data-api is a searchengines API written in PHP. It fetches the sea
 searchengines-data-api supports reading a subset of the OpenSearchDescription format. Compatiblity table:
 
 | JSON property  | OpenSearchDescription                            | Notes                                                                      |
-| -------------- |:------------------------------------------------:| --------------------------------------------------------------------------:|
+| -------------- |--------------------------------------------------| ---------------------------------------------------------------------------|
 | ShortName      | ShortName                                        |                                                                            |
 | Description    | Description                                      |                                                                            |
 | (none)         | Tags                                             | Not implemented (supported on Mycroft Project?)                            |
