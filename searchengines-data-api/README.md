@@ -4,6 +4,7 @@ searchengines-data-api
 searchengines-data-api is a searchengines API written in PHP. It fetches the searchengines data from Mycroft Project. The data this api returns can be used in any application by sending a HTTP request to searchengines-data-api.
 
 searchengines-data-api supports reading a subset of the OpenSearchDescription format. Compatiblity table:
+
 | JSON property  | OpenSearchDescription                            | Notes                                                                      |
 | -------------- |:------------------------------------------------:| --------------------------------------------------------------------------:|
 | ShortName      | ShortName                                        |                                                                            |
@@ -30,9 +31,9 @@ searchengines-data-api supports reading a subset of the OpenSearchDescription fo
 Every implemented property that is not present in the XML description, will return an empty string. 
 
 Every unimplemented property is not available. Future implemented properties could be:
-* <Url type="application/atom+xml" template="http://example.com/?q={searchTerms}&amp;pw={startPage?}&amp;format=atom"/>
-* <Url type="application/rss+xml" template="http://example.com/?q={searchTerms}&amp;pw={startPage?}&amp;format=rss"/>
-* <Url type="application/json" rel="suggestions" template="http://example.com/suggest?q={searchTerms}" />
+* &lt;Url type="application/atom+xml" template="http://example.com/?q={searchTerms}&amp;pw={startPage?}&amp;format=atom"/>
+* &lt;Url type="application/rss+xml" template="http://example.com/?q={searchTerms}&amp;pw={startPage?}&amp;format=rss"/>
+* &lt;Url type="application/json" rel="suggestions" template="http://example.com/suggest?q={searchTerms}" />
 
 Feel free to open an issue to ask for a specific property. You will need to prove the property is actually used on Mycroft Project.
 
