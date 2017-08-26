@@ -136,7 +136,7 @@ function get_engine_xml_by_url($url){
 	$engine -> Image = getProperty($dom, "Image");
 	$engine -> Developer = getProperty($dom, "Developer");
 	$engine -> InputEncoding = getProperty($dom, "InputEncoding");
-	$engine -> SearchUrl = getPropertyUrlAttribute($dom, "text/html") . getPropertyParamAttribute($dom, "q");
+	$engine -> SearchUrl = getPropertyUrlAttribute($dom, "text/html") . getPropertyParamAttributes($dom);
 	$engine -> SuggestionsUrl = getPropertyUrlAttribute($dom, "application/x-suggestions+json");
 	$engine -> XmlViewUrl = $url;
 	$engine -> XmlDownloadUrl = getPropertyUrlAttribute($dom, "application/opensearchdescription+xml");
@@ -184,11 +184,22 @@ function getPropertyUrlAttribute($dom, $propertyAttributeValue){
 }
 
 // http://mycroftproject.com/installos.php/41181/archlinux_ddg.xml
-function getPropertyParamAttribute($dom, $propertyAttributeValue){
-	$value = getPropertyAttribute($dom, "Param", "name", $propertyAttributeValue, "value");
-	if($value != ""){
-		return "?" . $propertyAttributeValue . "=" . $value;
+// http://mycroftproject.com/installos.php/43908/track-trace_int.xml
+function getPropertyParamAttributes($dom){
+	$tags = $dom -> getElementsByTagName("Param");
+	$value = "";
+	
+	foreach ($tags as $tag) {
+		$paramName = value1($tag -> getAttribute("name"));
+		$paramValue = value1($tag -> getAttribute("value")); 
+		debug_print("$paramName has $paramValue\n");
+		if($value == ""){
+			$value = "?" . $paramName . "=" . $paramValue; 
+		}else{
+			$value = $value . "&" . $paramName . "=" . $paramValue; 
+		}
 	}
+		
 	return $value;
 }
 

@@ -39,7 +39,7 @@ Feel free to open an issue to ask for a specific property. You will need to prov
 
 [Click here for more information about the OpenSearchDescription format](http://www.opensearch.org/Specifications/OpenSearch/1.1)
 
-Param name="q" is also supported. Unsupported Param values can be added, just show me an example XML file and I will add them.
+All <lt;Param name= properties are supported. They are added to SearchUrl automatically.
 
 Examples
 ========
