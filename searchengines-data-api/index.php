@@ -136,7 +136,7 @@ function get_engine_xml_by_url($url){
 	$engine -> Image = getProperty($dom, "Image");
 	$engine -> Developer = getProperty($dom, "Developer");
 	$engine -> InputEncoding = getProperty($dom, "InputEncoding");
-	$engine -> SearchUrl = getPropertyUrlAttribute($dom, "text/html");
+	$engine -> SearchUrl = getPropertyUrlAttribute($dom, "text/html") . getPropertyParamAttribute($dom, "q");
 	$engine -> SuggestionsUrl = getPropertyUrlAttribute($dom, "application/x-suggestions+json");
 	$engine -> XmlViewUrl = $url;
 	$engine -> XmlDownloadUrl = getPropertyUrlAttribute($dom, "application/opensearchdescription+xml");
@@ -179,15 +179,28 @@ function getNSProperty($dom, $propertyName){
 	return value1($value);
 }
 
-function getPropertyUrlAttribute($dom, $propertyAttributeType){
-	$tags = $dom -> getElementsByTagName("Url");
+function getPropertyUrlAttribute($dom, $propertyAttributeValue){
+	return getPropertyAttribute($dom, "Url", "type", $propertyAttributeValue, "template");
+}
+
+// http://mycroftproject.com/installos.php/41181/archlinux_ddg.xml
+function getPropertyParamAttribute($dom, $propertyAttributeValue){
+	$value = getPropertyAttribute($dom, "Param", "name", $propertyAttributeValue, "value");
+	if($value != ""){
+		return "?" . $propertyAttributeValue . "=" . $value;
+	}
+	return $value;
+}
+
+function getPropertyAttribute($dom, $tagName, $propertyAttributeName, $propertyAttributeValue, $propertyAttributeToGet){
+	$tags = $dom -> getElementsByTagName($tagName);
 	$value = null;
 	
 	foreach ($tags as $tag) {
-		$tempValue = $tag -> getAttribute("type");
-		if($tempValue == $propertyAttributeType){
-			$value = $tag -> getAttribute("template");
-			debug_print("$propertyAttributeType has $value\n");
+		$tempValue = $tag -> getAttribute($propertyAttributeName);
+		if($tempValue == $propertyAttributeValue){
+			$value = $tag -> getAttribute($propertyAttributeToGet);
+			debug_print("$propertyAttributeToGet has $value\n");
 			break;
 		}
 	}
