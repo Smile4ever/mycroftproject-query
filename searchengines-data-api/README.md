@@ -46,7 +46,7 @@ Examples
 
 searchengines-data-api can be used like this from the (Linux) command line:
 
-	SHORTNAME=google LIMIT=25 php index.php
+	NAME=google LIMIT=25 php index.php
 	
 searchengines-data-api can be used like this using the HTTP api interface:
 	
@@ -99,19 +99,19 @@ This request outputs an array of JSON objects:
 Parameters and values
 =====================
 
-Passing input values:
-* shortname (required)
+A key API parameter is optional when at least one other key API parameter is used. Otherwise, it is required. This means at least one of these "key" API parameters is required: shortname/name, language, category or country.
+
 * limit (optional, can be any positive number) (default = no limit)
 * onlyvalid (optional, can be true or false) (default is false)
 
-Example values for shortname:
-* "DuckDuckGo"
-* "Google"
-* "GitHub"
-
-Example values for limit:
-* (none)
-* 100
+| API Parameter    | Type                  | Example values                                |
+| ---------------- |-----------------------| ----------------------------------------------|
+| shortname / name | Key parameter         | "DuckDuckGo", "Google", "GitHub"              |
+| language         | Key parameter         | "af", "nl", "en"                              |
+| category         | Key parameter         | "1" (a numeric value)                         |
+| country          | Key parameter         | "BE" (2 letter country code)                  |
+| limit            | Optional parameter    | "25"                                          |
+| onlyvalid        | Optional parameter    | "true" or "false"                             |
 
 Attention:
-* Use CAPITAL LETTERS for the parameter names when calling searchengines-data-api from the command line, e.g. "SHORTNAME" or "LIMIT"
+* Use CAPITAL LETTERS for the parameter names when calling searchengines-data-api from the command line, e.g. "NAME" or "LIMIT"

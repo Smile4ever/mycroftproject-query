@@ -2,11 +2,23 @@
 header('Content-Type: application/json; charset=utf-8');
 
 $debugmsgs = array();
-$ShortName = get_parameter("shortname");
+
+// Supported internal query parameters (not visible to the user of the API)
+$searchProperties = array();
+$searchProperties[] = "name";
+$searchProperties[] = "language";
+$searchProperties[] = "category";
+$searchProperties[] = "country";
+
+// Input API parameters (visible to the user of the API)
+$Name = get_parameter("shortname") . get_parameter("name");
+$Language = get_parameter("language");
+$Category = get_parameter("category");
+$Country = get_parameter("country");
 $Limit = get_parameter("limit");
 $OnlyValid = strtolower(get_parameter("onlyvalid"));
 
-$engines_name_id = get_engines_name_id($ShortName);
+$engines_name_id = get_engines_name_id($Name, $Language, $Category, $Country);
 
 $searchEnginesJson = array();
 $searchEnginesObj = array();
@@ -82,10 +94,40 @@ function debug_print($message){
 	$debugmsgs[] = $message;
 }
 
-function get_engines_name_id($ShortName){
-	$engines = array();
+function get_engines_name_id($Name,$Language,$Category,$Country){
+	global $searchProperties;
 	
-	$url = "http://mycroftproject.com/search-engines.html?name=$ShortName";
+	$engines = array();
+	$searchQuery = "";
+	
+	foreach ($searchProperties as $searchProperty) {
+		$paramName = $searchProperty;
+		$paramValue = "";
+		if($paramName == "name"){
+			$paramValue = $Name;
+		}
+		if($paramName == "language"){
+			$paramValue = $Language;
+		}
+		if($paramName == "category"){
+			$paramValue = $Category;
+		}
+		if($paramName == "country"){
+			$paramValue = $Country;
+		}
+		
+		debug_print("$paramName has $paramValue\n");
+		if($paramValue != ""){
+			if($searchQuery == ""){
+				$searchQuery = "?" . $paramName . "=" . $paramValue; 
+			}else{
+				$searchQuery = $searchQuery . "&" . $paramName . "=" . $paramValue; 
+			}
+		}
+	}
+	
+	
+	$url = "http://mycroftproject.com/search-engines.html$searchQuery";
 	debug_print($url);
 	$html = file_get_contents($url);
 	
