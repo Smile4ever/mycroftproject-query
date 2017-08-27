@@ -3,6 +3,28 @@ header('Content-Type: application/json; charset=utf-8');
 
 $debugmsgs = array();
 
+// Category mapping
+$categoryMap["shopping/auction"] 	 			 = 1;		$categoryMap["shopping/classifieds"]   		  = 2;		$categoryMap["computer"] 			 		   	   = 3;
+$categoryMap["health"] 							 = 4;		$categoryMap["reference"]			    	  = 5;		$categoryMap["internet/mozilla"]	 		   	   = 6;
+$categoryMap["arts & media"] 		 	 	     = 7;		$categoryMap["news"] 				    	  = 8;		$categoryMap["computer/programming"] 		   	   = 9;
+$categoryMap["shopping"] 			 			 = 10;		$categorymap["news/technology"]		    	  = 11;		$categoryMap["major engines"]		 		  	   = 12;
+$categoryMap["file sharing"] 		 			 = 13;		$categorymap["education"]			    	  = 14;		$categoryMap["society/religion"]	 		   	   = 15;
+$categoryMap["kids & teens"] 		 			 = 16;		$categorymap["arts & media/music"]	   		  = 17;		$categoryMap["business"]					   	   = 18;
+$categoryMap["society"] 			 			 = 19;		$categorymap["undefined"]			   	  	  = 20;		$categoryMap["dictionaries"]				  	   = 21;
+$categoryMap["recreation"] 				 		 = 22;		$categorymap["recreation/travel"]	   	  	  = 23;		$categoryMap["games/roleplaying"]			   	   = 24;
+$categoryMap["arts & media/literature"] 		 = 25;		$categorymap["society/blogs"]		   	  	  = 26;		$categoryMap["directories - address,phone..."] 	   = 27;
+$categoryMap["internet/tools"] 			 		 = 10;		$categorymap["games/video games"]	    	  = 30;		$categoryMap["arts & media/film, tv & video"]  	   = 31;
+$categoryMap["news/weather"]			 		 = 40;		$categorymap["arts & media/animation"]  	  = 41;		$categoryMap["arts & media/images"]		  	   	   = 43;
+$categoryMap["business/jobs"] 					 = 45;		$categorymap["libraries"]			    	  = 46;		$categoryMap["shopping/books"]			       	   = 47;
+$categoryMap["shopping/music"] 					 = 48;		$categorymap["shopping/electronics"]    	  = 49;		$categoryMap["shopping/dvd & video"]	       	   = 50;
+$categoryMap["education/universities"]			 = 51;		$categorymap["shopping/computer"]	    	  = 52;		$categoryMap["reference/maps"]			       	   = 53;
+$categoryMap["education/journals"] 		 		 = 54;		$categorymap["shopping/home & diy"]	    	  = 55;		$categoryMap["shopping/price comparison"]	   	   = 56;
+$categoryMap["dictionaries/translation"] 		 = 57;		$categorymap["games"]		   		    	  = 58;		$categoryMap["society/social network"]	       	   = 59;
+$categoryMap["recreation/sport"] 				 = 60;		$categorymap["recreation/food & drink"] 	  = 61;		$categoryMap["internet"]				       	   = 62;
+$categoryMap["computer/linux"] 					 = 63;		$categorymap["internet/programming"]    	  = 64;		$categoryMap["computer/software"]			   	   = 65;
+$categoryMap["other general engines"] 			 = 66;		$categorymap["reference/encyclopedias"]		  = 67;		$categoryMap["other general engines/custom(ised)"] = 68;
+$categoryMap["other general engines/metasearch"] = 69;		$categorymap["other general engines/charity"] = 70;		$categoryMap["society/government"]			       = 71;
+
 // Supported internal query parameters (not visible to the user of the API)
 $searchProperties = array();
 $searchProperties[] = "name";
@@ -96,6 +118,7 @@ function debug_print($message){
 
 function get_engines_name_id($Name,$Language,$Category,$Country){
 	global $searchProperties;
+	global $categoryMap;
 	
 	$engines = array();
 	$searchQuery = "";
@@ -110,7 +133,8 @@ function get_engines_name_id($Name,$Language,$Category,$Country){
 			$paramValue = $Language;
 		}
 		if($paramName == "category"){
-			$paramValue = $Category;
+			$paramValue = $categoryMap[strtolower($Category)];
+			#echo $paramValue
 		}
 		if($paramName == "country"){
 			$paramValue = $Country;

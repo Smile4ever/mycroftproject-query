@@ -104,14 +104,41 @@ A key API parameter is optional when at least one other key API parameter is use
 * limit (optional, can be any positive number) (default = no limit)
 * onlyvalid (optional, can be true or false) (default is false)
 
+If onlyvalid=true, it skips engines that could not be parsed properly. This is unrelated to the verified status on Mycroft Project. Engines that could not be parsed do not contain useful properties except for XmlViewUrl.
+
 | API Parameter    | Type                  | Example values                                |
 | ---------------- |-----------------------| ----------------------------------------------|
 | shortname / name | Key parameter         | "DuckDuckGo", "Google", "GitHub"              |
 | language         | Key parameter         | "af", "nl", "en"                              |
-| category         | Key parameter         | "1" (a numeric value)                         |
+| category         | Key parameter         | A lowercase string value, see below           |
 | country          | Key parameter         | "BE" (2 letter country code)                  |
 | limit            | Optional parameter    | "25"                                          |
 | onlyvalid        | Optional parameter    | "true" or "false"                             |
+
+Possibilities for "category":
+
+| Category    			     		 | Category          			   | Category                             |
+| -----------------------------------|---------------------------------|--------------------------------------|
+| "shopping/auction"				 | "shopping/classifieds"   	   | "computer" 			 		   	  |
+| "health"				    		 | "reference"			    	   | "internet/mozilla"	 		   	      | 
+| "arts & media" 		    		 | "news" 				    	   | "computer/programming" 		   	  |
+| "shopping" 			    		 | "news/technology"		       | "major engines"		 		  	  |
+| "file sharing" 		    		 | "education"			    	   | "society/religion"	 		   	      | 
+| "kids & teens" 		    		 | "arts & media/music"	   		   | "business"				   	          |
+| "society" 			 			 | "undefined"			   	  	   | "dictionaries"				  	      |
+| "recreation" 						 | "recreation/travel"	   	  	   | "games/roleplaying"			   	  |
+| "arts & media/literature" 		 | "society/blogs"		   	  	   | "directories - address,phone..." 	  |
+| "internet/tools" 		 			 | "games/video games"	    	   | "arts & media/film, tv & video"  	  |
+| "news/weather"		 			 | "arts & media/animation"  	   | "arts & media/images"  	   	      |
+| "business/jobs"		    		 | "libraries"			    	   | "shopping/books"	       	   		  |
+| "shopping/music"]		 			 | "shopping/electronics"    	   | "shopping/dvd & video"	       	      |
+| "education/universities"  		 | "shopping/computer"	    	   | "reference/maps"		       	      |
+| "education/journals"				 | "shopping/home & diy"	       | "shopping/price comparison"	   	  |
+| "dictionaries/translation"		 | "games"		   		   	  	   | "society/social network"	       	  |
+| "recreation/sport" 			     | "recreation/food & drink" 	   | "internet"	       	                  |
+| "computer/linux"				     | "internet/programming"  	  	   | "computer/software"			   	  |
+| "other general engines"		     | "reference/encyclopedias"	   | "other general engines/custom(ised)" |
+| "other general engines/metasearch" | "other general engines/charity" | "society/government"			      |
 
 Attention:
 * Use CAPITAL LETTERS for the parameter names when calling searchengines-data-api from the command line, e.g. "NAME" or "LIMIT"
