@@ -56,7 +56,7 @@ foreach($engines_name_id as $engine_name_id){
 		}
 	}
 	$url = "http://mycroftproject.com/installos.php/" . trim($engine_name_id -> id) . "/" . trim($engine_name_id -> name) . ".xml";
-	$engine = get_engine_xml_by_url($url);
+	$engine = get_engine_xml_by_url($url, $engine_name_id -> id);
 	if($engine == null && $OnlyValid != "true"){
 		$jsonObject = array(
 			'ShortName' => "",
@@ -171,7 +171,7 @@ function get_engines_name_id($Name,$Language,$Category,$Country){
 				
 				$engine = new stdClass();
 				$engine->name = trim($parts[0]);
-				$engine->id = str_replace(")", "", $parts[1]);
+				$engine->id = trim(str_replace(")", "", $parts[1]));
 				$engines[] = $engine;
 			}
 		}
@@ -180,11 +180,20 @@ function get_engines_name_id($Name,$Language,$Category,$Country){
 	return $engines;
 }
 
-function get_engine_xml_by_url($url){
+function get_engine_xml_by_url($url, $id){
 	debug_print($url);
+
+	$xml = null;
+	$xmlFileName = "xmls/$id.xml";
+	if(file_exists($xmlFileName)){
+		$xml = @file_get_contents($xmlFileName);
+	}
 	
-	
-	$xml = @file_get_contents($url);
+	if(!isset($xml) || $xml == ""){
+		$xml = @file_get_contents($url);
+	 	file_put_contents($xmlFileName, $xml);
+	}
+
 	if(!isset($xml) || $xml == ""){
 		return null;
 	}
